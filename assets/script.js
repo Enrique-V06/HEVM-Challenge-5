@@ -11,12 +11,18 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  var numb = ('.')
+  $('numb').click(function(){
+    document.getElementById(this);
+    localStorage.saveData = $('.saveBtn');
+    console.log(localStorage);
+  });
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-    for(i = 9; i <= 17; i++){
+    for(i = 9; i <= 18; i++){
       var w = document.getElementById(i);
       if(time == i){
         w.classList.add('present');
@@ -32,8 +38,29 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+  
+  $('.saveBtn').on('click', function(e){
+    e.preventDefault()
+    var task = ($(this).siblings('textarea').val())
+    var hour = ($(this).parent().attr('id'))
+    localStorage.setItem(hour, task)
+
+  })
+
   // TODO: Add code to display the current date in the header of the page.
   var reformatHour = today.format('DD/MM/YYYY h a');
   $('#currentDay').text(reformatHour);
-  console.log(reformatHour);
+  // console.log(reformatHour);
 });
+
+
+function getTasks(){
+  // console.log(localStorage.getItem(20))
+  for(var i = 0; i<localStorage.length; i++){
+    var key = (localStorage.key(i))
+    var value = (localStorage.getItem(localStorage.key(i)))
+    $('.'+ key).val(value)
+  }
+}
+
+getTasks()
